@@ -1,8 +1,7 @@
 ---
-- name: Verify the Ansible_demo MCP test project
-  hosts: localhost
-  connection: local
-  gather_facts: false
+- name: Configure application servers
+  hosts: application_servers
+  gather_facts: true
   tasks:
     - name: Confirm the playbook is available
       ansible.builtin.debug:
@@ -11,3 +10,15 @@
     - name: Display the configured demo environment
       ansible.builtin.debug:
         var: demo_environment
+
+    - name: Install nginx
+      ansible.builtin.fail:
+        msg: >-
+          Failed to download metadata for repo 'appstream': Cannot prepare
+          internal mirrorlist: Temporary failure in name resolution
+      # Continue so the next task demonstrates the dependent service failure.
+      ignore_errors: true
+
+    - name: Start nginx service
+      ansible.builtin.fail:
+        msg: "Could not find the requested service nginx"
