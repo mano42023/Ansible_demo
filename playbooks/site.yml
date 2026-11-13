@@ -1,0 +1,13 @@
+---
+- name: Verify the Ansible_demo MCP test project
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Confirm the playbook is available
+      ansible.builtin.debug:
+        msg: "Ansible_demo playbook loaded successfully."
+
+    - name: Display the configured demo environment
+      ansible.builtin.debug:
+        var: demo_environment
