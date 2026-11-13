@@ -10,4 +10,4 @@
 
     - name: Display the configured demo environment
       ansible.builtin.debug:
-        var: demo_environment
+        msg: "{{ demo_environment | default('not configured') }}"
