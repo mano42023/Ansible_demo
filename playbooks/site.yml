@@ -12,13 +12,12 @@
         var: demo_environment
 
     - name: Install nginx
-      ansible.builtin.fail:
-        msg: >-
-          Failed to download metadata for repo 'appstream': Cannot prepare
-          internal mirrorlist: Temporary failure in name resolution
-      # Continue so the next task demonstrates the dependent service failure.
-      ignore_errors: true
+      ansible.builtin.package:
+        name: nginx
+        state: present
 
     - name: Start nginx service
-      ansible.builtin.fail:
-        msg: "Could not find the requested service nginx"
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
